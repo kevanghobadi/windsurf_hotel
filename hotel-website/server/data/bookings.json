@@ -1,0 +1,15 @@
+[
+  {
+    "id": "1747762498730",
+    "fullName": "Kevan test",
+    "email": "kevang@gmail.com",
+    "phone": "8595527331",
+    "checkIn": "2025-05-28",
+    "checkOut": "2025-05-30",
+    "message": "",
+    "totalPrice": 700,
+    "status": "confirmed",
+    "createdAt": "2025-05-20T17:34:58.730Z",
+    "updatedAt": "2025-05-20T17:44:49.859Z"
+  }
+]
