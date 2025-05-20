@@ -1,15 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BookingForm = ({ visible, setVisible }) => {
+  // Room types with different price points
+  const roomTypes = [
+    { id: 2, name: "Adventure Room", price: 275 },
+    { id: 3, name: "Wellness Room", price: 350 },
+    { id: 1, name: "Athletic Suite", price: 500 }
+  ];
+  
+  const [selectedRoomType, setSelectedRoomType] = useState(roomTypes[0].id); // Default to Adventure Room
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
     checkIn: '',
     checkOut: '',
-    message: ''
+    message: '',
+    roomType: roomTypes[0].name
   });
+  
+  // Update room type in form data when selected room changes
+  useEffect(() => {
+    const selectedRoom = roomTypes.find(room => room.id === selectedRoomType);
+    if (selectedRoom) {
+      setFormData(prev => ({
+        ...prev,
+        roomType: selectedRoom.name
+      }));
+    }
+  }, [selectedRoomType]);
   
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -77,8 +97,11 @@ const BookingForm = ({ visible, setVisible }) => {
     const timeDiff = checkOut.getTime() - checkIn.getTime();
     const nightsCount = Math.ceil(timeDiff / (1000 * 3600 * 24));
     
-    // $350 per night
-    return nightsCount * 350;
+    // Get the current room price based on selection
+    const selectedRoom = roomTypes.find(room => room.id === selectedRoomType);
+    const pricePerNight = selectedRoom ? selectedRoom.price : 275; // Default to lowest price if not found
+    
+    return nightsCount * pricePerNight;
   };
   
   const handleSubmit = async (e) => {
@@ -303,6 +326,23 @@ const BookingForm = ({ visible, setVisible }) => {
               </div>
               
               <div className="md:col-span-2">
+                <label htmlFor="roomType" className="block mb-2 text-sm font-medium text-gray-700">
+                  Room Type *
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                  {roomTypes.map((room) => (
+                    <div key={room.id} 
+                      className={`border rounded-lg p-4 cursor-pointer transition-colors duration-200 ${selectedRoomType === room.id ? 'border-primary bg-primary/5' : 'border-gray-200 hover:border-gray-400'}`}
+                      onClick={() => setSelectedRoomType(room.id)}
+                    >
+                      <div className="font-medium text-gray-900">{room.name}</div>
+                      <div className="text-accent font-bold mt-1">${room.price}/night</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="md:col-span-2">
                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-700">
                   Special Requests (optional)
                 </label>
@@ -326,7 +366,7 @@ const BookingForm = ({ visible, setVisible }) => {
                     <p className="text-lg font-semibold text-primary">${calculateTotalPrice()}</p>
                   </div>
                   <div className="text-sm text-gray-500">
-                    $350 × {Math.ceil((new Date(formData.checkOut) - new Date(formData.checkIn)) / (1000 * 60 * 60 * 24))} nights
+                    ${roomTypes.find(room => room.id === selectedRoomType)?.price} × {Math.ceil((new Date(formData.checkOut) - new Date(formData.checkIn)) / (1000 * 60 * 60 * 24))} nights
                   </div>
                 </div>
               </div>

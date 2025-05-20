@@ -245,6 +245,7 @@ app.get('/api/bookings', async (req, res) => {
  *   checkIn: string (YYYY-MM-DD),
  *   checkOut: string (YYYY-MM-DD),
  *   message: string (optional),
+ *   roomType: string,
  *   totalPrice: number
  * }
  * Success response (201 Created): { message: string, booking: Object }
@@ -265,11 +266,12 @@ app.post('/api/bookings', async (req, res) => {
       checkIn,
       checkOut,
       message,
+      roomType,
       totalPrice
     } = req.body;
     
     // Perform basic validation of required fields
-    if (!fullName || !email || !phone || !checkIn || !checkOut) {
+    if (!fullName || !email || !phone || !checkIn || !checkOut || !roomType) {
       return res.status(400).json({ message: 'Required fields are missing' });
     }
     
@@ -285,6 +287,7 @@ app.post('/api/bookings', async (req, res) => {
       phone,
       checkIn,
       checkOut,
+      roomType, // Store the room type selection
       message: message || '', // Use empty string if no message provided
       totalPrice,
       status: 'pending', // All new bookings start with pending status

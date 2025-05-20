@@ -5,21 +5,24 @@ const Rooms = ({ onRequestRoom }) => {
       name: "Athletic Suite",
       image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
       description: "Our premium suite features a king bed, dedicated workout area with essential equipment, recovery amenities, and mountain views.",
-      features: ["In-room exercise equipment", "Recovery station", "Mountain view", "King bed", "Spa bathroom"]
+      features: ["In-room exercise equipment", "Recovery station", "Mountain view", "King bed", "Spa bathroom"],
+      price: 500
     },
     {
       id: 2,
       name: "Adventure Room",
       image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
       description: "Perfect for outdoor enthusiasts, this room offers direct trail access, gear storage, and all the comforts you need after a day of adventure.",
-      features: ["Trail access", "Gear storage", "Queen bed", "Rain shower", "Trail maps"]
+      features: ["Trail access", "Gear storage", "Queen bed", "Rain shower", "Trail maps"],
+      price: 275
     },
     {
       id: 3,
       name: "Wellness Room",
       image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
       description: "Designed for relaxation and recovery, featuring ultra-comfortable bedding, in-room wellness amenities, and serene forest views.",
-      features: ["Meditation corner", "Aromatherapy", "Blackout curtains", "Queen bed", "Forest view"]
+      features: ["Meditation corner", "Aromatherapy", "Blackout curtains", "Queen bed", "Forest view"],
+      price: 350
     }
   ];
 
@@ -38,7 +41,7 @@ const Rooms = ({ onRequestRoom }) => {
       <div className="text-center mb-12">
         <h2 className="section-heading">Premium Accommodations</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          All rooms are available at $350 per night and feature athletic-focused amenities for the active traveler.
+          Choose from our range of rooms starting at $275 per night, all featuring athletic-focused amenities for the active traveler.
         </p>
       </div>
 
@@ -71,7 +74,7 @@ const Rooms = ({ onRequestRoom }) => {
               </div>
               
               <div className="mt-auto pt-4 border-t border-gray-100">
-                <p className="text-lg font-bold text-primary mb-4">$350 per night</p>
+                <p className="text-lg font-bold text-primary mb-4">${room.price} per night</p>
                 <button
                   onClick={handleRequestRoom}
                   onKeyDown={handleKeyDown}
